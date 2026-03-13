@@ -180,8 +180,18 @@ const Test = ({ testData, updateTestData, timer, showScreen }) => {
           )}
 
           <div className="question-area">
-            <div className={`section-label ${testData.currentSection === 'reading' ? 'rw-label' : ''}`}>
-              {testData.currentSection === 'reading' ? 'Reading & Writing' : 'Math'} — Module {testData.currentModule === 'module1' ? '1' : '2'}
+            <div className="question-header">
+              <div className={`section-label ${testData.currentSection === 'reading' ? 'rw-label' : ''}`}>
+                {testData.currentSection === 'reading' ? 'Reading & Writing' : 'Math'} — Module {testData.currentModule === 'module1' ? '1' : '2'}
+              </div>
+              {testData.currentSection === 'math' && (
+                <button
+                  className={`calculator-toggle-left ${showCalculator ? 'active' : ''}`}
+                  onClick={() => setShowCalculator(!showCalculator)}
+                >
+                  📊 Calculator
+                </button>
+              )}
             </div>
             <div className="question-counter">
               Question <span>{testData.currentQuestion + 1}</span> of <span>{totalQuestions}</span>
@@ -290,19 +300,6 @@ const Test = ({ testData, updateTestData, timer, showScreen }) => {
               </div>
             </div>
 
-            {testData.currentSection === 'math' && (
-              <div className="sidebar-card">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                  <h4>Calculator</h4>
-                  <button
-                    className={`calculator-toggle ${showCalculator ? 'active' : ''}`}
-                    onClick={() => setShowCalculator(!showCalculator)}
-                  >
-                    📊
-                  </button>
-                </div>
-              </div>
-            )}
 
             <button
               className="btn btn-primary"
