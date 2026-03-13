@@ -5,7 +5,12 @@ const Results = ({ testData, showScreen, startNewTest }) => {
   const [activeFilters, setActiveFilters] = useState(['all'])
 
   // Calculate results
-  const allQuestions = [...mockQuestions.reading, ...mockQuestions.math]
+  const allQuestions = [
+    ...mockQuestions.reading.module1,
+    ...mockQuestions.reading.module2,
+    ...mockQuestions.math.module1,
+    ...mockQuestions.math.module2
+  ]
   const correctAnswers = allQuestions.filter(q =>
     testData.answers[q.id] === q.correctAnswer
   ).length
@@ -102,15 +107,15 @@ const Results = ({ testData, showScreen, startNewTest }) => {
           </div>
           <div className="breakdown-stats">
             <div className="b-stat correct">
-              <div className="num">{mockQuestions.reading.filter(q => testData.answers[q.id] === q.correctAnswer).length}</div>
+              <div className="num">{[...mockQuestions.reading.module1, ...mockQuestions.reading.module2].filter(q => testData.answers[q.id] === q.correctAnswer).length}</div>
               <div className="label">Correct</div>
             </div>
             <div className="b-stat incorrect">
-              <div className="num">{mockQuestions.reading.filter(q => testData.answers[q.id] && testData.answers[q.id] !== q.correctAnswer).length}</div>
+              <div className="num">{[...mockQuestions.reading.module1, ...mockQuestions.reading.module2].filter(q => testData.answers[q.id] && testData.answers[q.id] !== q.correctAnswer).length}</div>
               <div className="label">Incorrect</div>
             </div>
             <div className="b-stat skipped">
-              <div className="num">{mockQuestions.reading.filter(q => !testData.answers[q.id]).length}</div>
+              <div className="num">{[...mockQuestions.reading.module1, ...mockQuestions.reading.module2].filter(q => !testData.answers[q.id]).length}</div>
               <div className="label">Skipped</div>
             </div>
           </div>
@@ -126,15 +131,15 @@ const Results = ({ testData, showScreen, startNewTest }) => {
           </div>
           <div className="breakdown-stats">
             <div className="b-stat correct">
-              <div className="num">{mockQuestions.math.filter(q => testData.answers[q.id] === q.correctAnswer).length}</div>
+              <div className="num">{[...mockQuestions.math.module1, ...mockQuestions.math.module2].filter(q => testData.answers[q.id] === q.correctAnswer).length}</div>
               <div className="label">Correct</div>
             </div>
             <div className="b-stat incorrect">
-              <div className="num">{mockQuestions.math.filter(q => testData.answers[q.id] && testData.answers[q.id] !== q.correctAnswer).length}</div>
+              <div className="num">{[...mockQuestions.math.module1, ...mockQuestions.math.module2].filter(q => testData.answers[q.id] && testData.answers[q.id] !== q.correctAnswer).length}</div>
               <div className="label">Incorrect</div>
             </div>
             <div className="b-stat skipped">
-              <div className="num">{mockQuestions.math.filter(q => !testData.answers[q.id]).length}</div>
+              <div className="num">{[...mockQuestions.math.module1, ...mockQuestions.math.module2].filter(q => !testData.answers[q.id]).length}</div>
               <div className="label">Skipped</div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Navigation from './components/Navigation'
 import Landing from './components/Landing'
+import SectionSelection from './components/SectionSelection'
 import Test from './components/Test'
 import Results from './components/Results'
 import ReviewDetail from './components/ReviewDetail'
@@ -12,10 +13,11 @@ function App() {
     currentQuestion: 0,
     answers: {},
     currentSection: 'reading',
+    currentModule: 'module1',
     flagged: new Set()
   })
 
-  const timer = useTimer(1920) // 32 minutes for reading section
+  const timer = useTimer(960) // 16 minutes for reading modules
 
   const showScreen = (screen) => {
     setCurrentScreen(screen)
@@ -40,9 +42,24 @@ function App() {
       currentQuestion: 0,
       answers: {},
       currentSection: 'reading',
+      currentModule: 'module1',
       flagged: new Set()
     })
-    timer.resetTimer(1920) // Reset to 32 minutes
+    timer.resetTimer(960) // Reset to 16 minutes for reading module 1
+    setCurrentScreen('sectionSelection')
+  }
+
+  const onSectionSelect = (section) => {
+    const moduleTime = section === 'reading' ? 960 : 1050 // 16:00 for reading, 17:30 for math
+    setTestData({
+      currentQuestion: 0,
+      answers: {},
+      currentSection: section,
+      currentModule: 'module1',
+      flagged: new Set()
+    })
+    timer.resetTimer(moduleTime)
+    timer.startTimer() // Start the timer immediately
     setCurrentScreen('test')
   }
 
@@ -57,6 +74,10 @@ function App() {
 
       {currentScreen === 'landing' && (
         <Landing showScreen={showScreen} startNewTest={startNewTest} />
+      )}
+
+      {currentScreen === 'sectionSelection' && (
+        <SectionSelection onSectionSelect={onSectionSelect} />
       )}
 
       {currentScreen === 'test' && (

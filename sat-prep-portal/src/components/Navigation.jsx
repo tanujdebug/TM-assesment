@@ -5,16 +5,30 @@ const Navigation = ({ currentScreen, testData, timer, showScreen }) => {
     return 'timer-pill'
   }
 
-  const renderNavContent = () => {
+  const renderNavCenter = () => {
     if (currentScreen === 'test') {
+      const sectionName = testData.currentSection === 'reading' ? 'Reading & Writing' : 'Math'
       return (
-        <div className="nav-meta">
+        <div className="nav-center">
           <div className={getTimerClass()}>
             <div className="dot"></div>
             <span>{timer.formatTime}</span>
           </div>
           <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-            Reading & Writing
+            {sectionName}
+          </span>
+        </div>
+      )
+    }
+    return null
+  }
+
+  const renderNavRight = () => {
+    if (currentScreen === 'test') {
+      return (
+        <div className="nav-user">
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+            User
           </span>
         </div>
       )
@@ -64,7 +78,8 @@ const Navigation = ({ currentScreen, testData, timer, showScreen }) => {
           </a>
           <a href="#" onClick={(e) => e.preventDefault()}>RESOURCES</a>
         </div>
-        {renderNavContent()}
+        {renderNavCenter()}
+        {renderNavRight()}
       </div>
     </nav>
   )
