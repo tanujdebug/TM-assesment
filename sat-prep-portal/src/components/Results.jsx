@@ -220,7 +220,7 @@ const Results = ({ testData, showScreen, startNewTest }) => {
               <div
                 key={question.id}
                 className="review-item"
-                onClick={() => showScreen('review')}
+                onClick={() => showScreen('review', question.id)}
               >
                 <div className={`review-status ${status}`}>
                   {status === 'correct' ? '✓' : status === 'incorrect' ? '✗' : '—'}

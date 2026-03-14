@@ -1,11 +1,45 @@
+import { useState, useEffect } from 'react'
 import { mockQuestions } from '../data/questions.js'
 
-const ReviewDetail = ({ testData, showScreen }) => {
-  // For demo purposes, showing the first reading question
-  // In a real app, you'd pass the specific question ID to review
-  const currentQuestion = mockQuestions.reading[0]
+const ReviewDetail = ({ testData, showScreen, questionId }) => {
+  const allQuestions = [
+    ...mockQuestions.reading.module1,
+    ...mockQuestions.reading.module2,
+    ...mockQuestions.math.module1,
+    ...mockQuestions.math.module2
+  ]
+
+  // Find the index of the question to start with
+  const getInitialQuestionIndex = () => {
+    if (questionId) {
+      const index = allQuestions.findIndex(q => q.id === questionId)
+      return index !== -1 ? index : 0
+    }
+    return 0
+  }
+
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(getInitialQuestionIndex)
+
+  // Update currentQuestionIndex when questionId changes
+  useEffect(() => {
+    setCurrentQuestionIndex(getInitialQuestionIndex())
+  }, [questionId])
+
+  const currentQuestion = allQuestions[currentQuestionIndex]
   const userAnswer = testData.answers[currentQuestion.id]
   const isCorrect = userAnswer === currentQuestion.correctAnswer
+
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1)
+    }
+  }
+
+  const handleNext = () => {
+    if (currentQuestionIndex < allQuestions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1)
+    }
+  }
 
   const getChoiceClass = (choiceLetter) => {
     if (choiceLetter === currentQuestion.correctAnswer) {
@@ -28,7 +62,7 @@ const ReviewDetail = ({ testData, showScreen }) => {
 
       <div className="question-area">
         <div className="section-label rw-label">
-          {currentQuestion.section === 'reading' ? 'Reading & Writing' : 'Math'} — Question {currentQuestion.id}
+          {currentQuestion.section === 'reading' ? 'Reading & Writing' : 'Math'} — Question {currentQuestionIndex + 1} of {allQuestions.length}
         </div>
 
         <div style={{
@@ -86,10 +120,18 @@ const ReviewDetail = ({ testData, showScreen }) => {
         justifyContent: 'space-between',
         marginTop: '18px'
       }}>
-        <button className="btn btn-secondary">
+        <button
+          className="btn btn-secondary"
+          onClick={handlePrevious}
+          disabled={currentQuestionIndex === 0}
+        >
           ← Previous Question
         </button>
-        <button className="btn btn-primary">
+        <button
+          className="btn btn-primary"
+          onClick={handleNext}
+          disabled={currentQuestionIndex === allQuestions.length - 1}
+        >
           Next Question →
         </button>
       </div>

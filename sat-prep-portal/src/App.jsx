@@ -9,6 +9,7 @@ import { useTimer } from './hooks/useTimer'
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('landing')
+  const [reviewQuestionId, setReviewQuestionId] = useState(null)
   const [testData, setTestData] = useState({
     currentQuestion: 0,
     answers: {},
@@ -19,8 +20,11 @@ function App() {
 
   const timer = useTimer(960) // 16 minutes for reading modules
 
-  const showScreen = (screen) => {
+  const showScreen = (screen, questionId = null) => {
     setCurrentScreen(screen)
+    if (questionId) {
+      setReviewQuestionId(questionId)
+    }
 
     // Start timer when entering test screen
     if (screen === 'test' && !timer.isRunning) {
@@ -101,6 +105,7 @@ function App() {
         <ReviewDetail
           testData={testData}
           showScreen={showScreen}
+          questionId={reviewQuestionId}
         />
       )}
     </div>
