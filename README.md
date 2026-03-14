@@ -1,33 +1,108 @@
-# TopMarks Technical Assessment
+# SAT Prep Portal
 
-This repository contains the complete implementation of a SAT test preparation portal built for the TopMarks technical assessment.
+A modern, interactive SAT practice test platform built with React and Vite. This application provides a realistic test-taking experience with comprehensive performance analytics and detailed score breakdowns.
 
-## 🎯 Project Overview
+## Live Demo
 
-**Challenge**: Build a modern SAT test prep website that covers the student experience end-to-end — from sitting down to take a test, through reviewing results.
+**Access the application at:** `change this link` 
 
-**Focus**: Student experience design, technical implementation choices, and architectural decisions rather than perfect SAT rule replication.
+## Features
 
-## 📁 Repository Structure
+### Core Functionality
+- **Section Selection Flow**: Choose between Reading & Writing or Math to start
+- **Modular Test Structure**: Each section has 2 modules (5 questions each) with adaptive flow
+- **Interactive Test Interface**: Navigate through SAT questions with intuitive UI
+- **Real-time Timer**: Centered timer in navbar with section-specific durations (16:00 for Reading, 17:30 for Math)
+- **Question Navigation**: Jump between questions, flag for review, track progress
+- **Score Analytics**: Comprehensive breakdown by section and skill areas
+- **Integrated Calculator**: Desmos Graphing Calculator for math sections with expandable left panel
 
+### Student Experience
+- **Landing Page**: Engaging hero section with test overview and feature highlights
+- **Section Selection**: Choose starting section with detailed module information
+- **Modular Test Flow**: Automatic progression through Module 1 → Module 2 → Other Section → Results
+- **Practice Test**: Realistic SAT-style questions with passage-based reading and math problems
+- **Results Dashboard**: Detailed performance analysis with skill-based recommendations
+- **Interactive Review**: Navigate through all questions with explanations and correct answer highlighting
+
+## Technical Architecture
+
+### Tech Stack
+- **Frontend Framework**: React 19.2.4
+- **Build Tool**: Vite 4.5.14
+- **Styling**: Pure CSS with custom variables (no external UI library)
+- **State Management**: React hooks (useState, useEffect, custom hooks)
+- **Calculator Integration**: Desmos Graphing Calculator API v1.1
+- **Timer System**: Custom hooks with automatic state management
+- **Development**: Hot module replacement, fast refresh
+
+### Key Design Decisions
+
+#### 1. **Simple, Focused Architecture**
+- **Why**: Prioritized development speed and maintainability over complex state management
+- **Implementation**: Used React's built-in state management with prop drilling for the relatively shallow component tree
+- **Trade-off**: Would need refactoring for larger scale (Redux/Zustand), but perfect for this scope
+
+#### 2. **Custom CSS Over UI Libraries**
+- **Why**: Complete design control and performance optimization
+- **Implementation**: CSS custom properties for theming, responsive grid layouts, smooth animations
+- **Trade-off**: More development time vs. faster customization and smaller bundle size
+
+#### 3. **Component-Based Architecture**
 ```
-TM-assesment/
-├── sat-portal-topmarks-v2 (2).html    # Original design mockup provided
-└── sat-prep-portal/                   # Complete React application
-    ├── src/
-    │   ├── components/                 # React components
-    │   ├── hooks/                      # Custom hooks (timer)
-    │   ├── data/                       # Mock SAT questions
-    │   └── index.css                   # Design system & styles
-    ├── dist/                          # Production build
-    ├── package.json                   # Dependencies & scripts
-    └── README.md                      # Technical documentation
+src/
+├── components/
+│   ├── Navigation.jsx       # Fixed header with timer & user info
+│   ├── Landing.jsx          # Hero + test overview
+│   ├── SectionSelection.jsx # Choose Reading/Math starting section
+│   ├── Test.jsx            # Main test interface with calculator integration
+│   ├── Results.jsx         # Score breakdown + analytics
+│   └── ReviewDetail.jsx    # Interactive question review with navigation
+├── hooks/
+│   └── useTimer.js         # Custom timer with module-specific durations
+├── data/
+│   └── questions.js        # Modular SAT questions (module1/module2 structure)
+├── index.css              # Global styles + design system + calculator themes
+└── index.html             # Desmos API integration
 ```
 
-## 🚀 Quick Start
+#### 4. **Modular Test Flow System**
+- **Why**: Realistic SAT experience with proper section/module progression
+- **Implementation**:
+  - Section Selection → Module 1 (5Q) → Module 2 (5Q) → Other Section → Results
+  - Automatic timer resets between modules (16:00 Reading, 17:30 Math)
+  - Smart completion detection to navigate to results
+- **State Management**: Tracks current section, module, and question progress
 
+#### 5. **Custom Timer Hook**
+- **Why**: Reusable timer logic with clean API
+- **Features**: Start/pause/reset, automatic state detection (normal/warning/danger)
+- **Implementation**: Uses `useEffect` for interval management with cleanup
+- **Module-Aware**: Different durations per section, auto-reset on transitions
+
+#### 6. **Calculator Integration**
+- **Why**: Authentic SAT math experience
+- **Implementation**: Desmos Graphing Calculator API with custom styling
+- **UX Design**: Expandable left panel, toggle button in question header
+- **Math-Only**: Conditional rendering for math sections only
+
+#### 7. **Modular Question Structure**
+- **Reading Questions**: Include passages, attributions, multiple choice options
+- **Math Questions**: Focus on problem-solving with clear explanations
+- **Module Organization**: `reading.module1`, `reading.module2`, `math.module1`, `math.module2`
+- **Skills Mapping**: Each question tagged with SAT skill categories for analytics
+
+
+##  Getting Started
+
+### Prerequisites
+- Node.js 18+ (compatible with Node 18.19.1)
+- npm or yarn
+
+### Installation
 ```bash
-# Navigate to the application
+# Clone the repository
+git clone <repository-url>
 cd sat-prep-portal
 
 # Install dependencies
@@ -35,105 +110,69 @@ npm install
 
 # Start development server
 npm run dev
-# → Opens at http://localhost:3002/
 
 # Build for production
 npm run build
+
+# Preview production build
+npm run preview
 ```
 
-## ✨ Features Implemented
+### Development Workflow
+1. **Development**: `npm run dev` - Hot reload at `http://localhost:3002`
+2. **Testing**: Manual testing across different screen sizes and user flows
+3. **Building**: `npm run build` - Optimized production bundle in `dist/`
 
-### Core Requirements ✅
-- **Test-taking experience**: Complete SAT Reading & Writing + Math sections
-- **Timer per section**: 32-minute countdown with visual warnings
-- **Results/review screen**: Comprehensive performance breakdown
-- **Mock data focus**: Realistic questions without requiring real SAT content
+## User Flow & Experience
 
-### Student Experience Highlights
-- **Landing Page**: Engaging hero with test preview and feature showcase
-- **Interactive Test**: Question navigation, flagging, progress tracking
-- **Smart Results**: Score breakdowns by section and skill areas
-- **Question Review**: Detailed explanations for learning
+### 1. Landing Page
+- **Goal**: Encourage test-taking with clear value proposition
+- **Features**: Preview cards showing score examples, animated marquee with benefits
+- **CTA**: Prominent "Begin Practice Test" button
 
-### Technical Excellence
-- **Modern Stack**: React 19 + Vite for fast development and performance
-- **Responsive Design**: Mobile-first approach, works on all devices
-- **Performance**: 67KB gzipped bundle, optimized for fast loading
-- **Accessibility**: High contrast, keyboard navigation support
+### 2. Test Experience
+- **Section Selection**: Choose between Reading & Writing or Math with module details
+- **Dynamic Layout**: 2-column (normal) or 3-column (with calculator) responsive layout
+- **Left Panel**: Expandable Desmos calculator for math sections
+- **Main Area**: Question content with passages and multiple choice
+- **Right Sidebar**: Progress tracking, question navigator, module status (white theme)
+- **Timer**: Centered navbar timer with section-specific durations and color-coded urgency
+- **Smart Navigation**: Module progression with automatic section transitions
 
-## 🎨 Design Approach
+### 3. Results & Analytics
+- **Score Display**: Large circular progress indicator with total score
+- **Section Breakdown**: Side-by-side Reading & Writing vs Math performance with module-based calculations
+- **Skills Analysis**: Horizontal bar charts showing strength/weakness areas
+- **Interactive Review**: Filterable list of all questions with status indicators and direct navigation
 
-**Theme**: Dark green aesthetic inspired by TopMarks branding
-**Typography**: DM Sans for readability, JetBrains Mono for technical elements
-**Layout**: Grid-based responsive design with smooth animations
-**UX**: Focus on reducing test anxiety with clear progress indicators
+## What Would I Do Differently?
 
-## 🏗️ Architecture Decisions
+### At Scale
+1. **State Management**: Implement Redux for complex state trees
+2. **Testing**: Add React Testing Library for unit/integration tests
+3. **API Integration**: Replace mock data with FastAPI endpoints
 
-### Why React + Vite?
-- **Fast Development**: Hot module replacement, instant feedback
-- **Performance**: Smaller bundle than Create React App
-- **Modern**: ES modules, optimized builds
-- **Simplicity**: No complex configuration needed
+### Additional Features
+1. **Adaptive Testing**: Real SAT-style difficulty adjustment based on performance
+2. **Progress Persistence**: LocalStorage or database persistence for resumed tests
+3. **Multiple Test Forms**: Various practice test versions
+4. **Detailed Analytics**: Time-per-question, confidence indicators, historical progress
+5. **Study Plans**: Personalized recommendations based on weak skill areas
 
-### Why Custom CSS?
-- **Design Control**: Exact implementation of design vision
-- **Performance**: No unused framework styles (18KB vs 100KB+ with libraries)
-- **Maintainability**: CSS custom properties for consistent theming
+### Technical Improvements
+1. **Error Boundaries**: Graceful error handling for production
+2. **Loading States**: Better UX during data fetching/processing
+3. **Performance Monitoring**: Real User Monitoring 
 
-### Why Simple State Management?
-- **Scope Appropriate**: Component tree is shallow, prop drilling works fine
-- **Development Speed**: No Redux boilerplate for this scale
-- **Future Ready**: Easy to migrate to Zustand/Redux when needed
+## Browser Support
 
-## 📊 Performance Metrics
+- **Modern Browsers**: Chrome 90+, Firefox 90+, Safari 14+, Edge 90+
+- **CSS Features**: CSS Grid, Custom Properties, CSS Animations
+- **JavaScript**: ES2020 features, async/await, destructuring
 
-- **Build Size**: 219KB JS + 18KB CSS (67KB gzipped total)
-- **Load Time**: < 2 seconds on 3G
-- **Lighthouse Score**: 95+ (Performance, Accessibility, Best Practices)
+## AI Tool used
 
-## 🔄 Future Enhancements
-
-### Immediate Next Steps
-1. **Real API Integration**: Replace mock data with backend
-2. **User Persistence**: Save progress across sessions
-3. **Advanced Analytics**: Time-per-question, confidence tracking
-
-### Scale Considerations
-1. **State Management**: Zustand for complex user flows
-2. **Testing**: Jest + React Testing Library suite
-3. **Monitoring**: Error tracking and performance monitoring
-4. **Content Management**: Admin interface for questions/tests
-
-## 🎓 Learning Focus
-
-This implementation demonstrates:
-- **Modern React Patterns**: Hooks, custom hooks, component composition
-- **Performance Optimization**: Bundle analysis, code splitting strategies
-- **User Experience Design**: Test anxiety reduction, clear feedback loops
-- **Responsive Development**: Mobile-first, progressive enhancement
-- **Code Organization**: Scalable file structure, separation of concerns
-
-## 🏆 Assessment Goals Met
-
-✅ **End-to-end student experience** - Landing → Test → Results → Review
-✅ **Technical depth** - Custom timer hook, responsive design, performance optimization
-✅ **Design thinking** - Student-centered UX decisions, accessibility considerations
-✅ **Documentation** - Clear technical explanations and decision rationale
-✅ **Production ready** - Built, optimized, and deployable
-
+- Used claude code and claude to help me in building the base of this tool.
 ---
 
-**Total Development Time**: ~4 hours (design conversion + React implementation + documentation)
-**Ready for**: Demo walkthrough and technical discussion
-
-## 📞 Demo Ready
-
-The application is fully functional and ready for demonstration. Key flows to showcase:
-
-1. **Landing Experience** - Hero section, test overview, clear CTAs
-2. **Test Taking** - Timer, navigation, question types, progress tracking
-3. **Results Analysis** - Score breakdown, skill identification, filtering
-4. **Question Review** - Explanations, learning opportunities
-
-Access at: `http://localhost:3002/` when running locally.
+**Built with React + Vite | Designed for optimal student experience | Performance-focused architecture**
