@@ -848,6 +848,20 @@ nav .container {
   margin-bottom: 12px; font-weight: 600;
 }
 
+.module-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(8px);
+}
+
+.module-card h4 {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.module-card div[style*="color: var(--text-secondary)"] {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
 .calculator-toggle {
   background: var(--bg-elevated);
   border: 1px solid var(--border);

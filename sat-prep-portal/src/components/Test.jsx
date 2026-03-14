@@ -274,13 +274,13 @@ const Test = ({ testData, updateTestData, timer, showScreen }) => {
               </div>
             </div>
 
-            <div className="sidebar-card" style={{ textAlign: 'center' }}>
+            <div className="sidebar-card module-card" style={{ textAlign: 'center' }}>
               <h4>Section</h4>
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+              <div style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.9)', marginBottom: '8px' }}>
                 {testData.currentSection === 'reading' ? 'Reading & Writing' : 'Math'}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.8)' }}>
                   Module {testData.currentModule === 'module1' ? '1' : '2'} of 2
                 </div>
                 <div style={{ display: 'flex', gap: '4px' }}>
@@ -288,13 +288,13 @@ const Test = ({ testData, updateTestData, timer, showScreen }) => {
                     width: '20px',
                     height: '3px',
                     borderRadius: '100px',
-                    background: testData.currentModule === 'module1' ? 'var(--accent)' : 'var(--border)'
+                    background: testData.currentModule === 'module1' ? 'var(--text)' : 'var(--border)'
                   }}></div>
                   <div style={{
                     width: '20px',
                     height: '3px',
                     borderRadius: '100px',
-                    background: testData.currentModule === 'module2' ? 'var(--accent)' : 'var(--border)'
+                    background: testData.currentModule === 'module2' ? 'var(--text)' : 'var(--border)'
                   }}></div>
                 </div>
               </div>
