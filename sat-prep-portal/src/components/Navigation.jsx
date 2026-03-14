@@ -58,7 +58,7 @@ const Navigation = ({ currentScreen, testData, timer, showScreen }) => {
     <nav id="main-nav">
       <div className="container">
         <div className="logo">
-          Top <span>Marks</span> Prep
+          SAT <span>Prep</span>
         </div>
         <div className={`nav-links ${currentScreen === 'test' ? 'hidden' : ''}`}>
           <a
