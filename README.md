@@ -4,7 +4,7 @@ A modern, interactive SAT practice test platform built with React and Vite. This
 
 ## Live Demo
 
-**Access the application at:** `change this link` 
+**Access the application at:** `https://tm-assesment1-n750h8nql-tanujs-projects-94ba4ba6.vercel.app/` 
 
 ## Features
 
